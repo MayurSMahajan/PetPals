@@ -1,7 +1,8 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import SelectPet from "./components/SelectPet";
-import BecomeSitter from "./components/BecomeSitter";
+import PetSitter from "./components/PetSitter";
+
 
 function App() {
   return (
@@ -9,7 +10,7 @@ function App() {
       <Navbar />
       <Hero />
       <SelectPet />
-      <BecomeSitter/>
+      <PetSitter/>
     </div>
   );
 }
