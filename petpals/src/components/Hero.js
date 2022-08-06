@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import axios from 'axios'
+import SelectPet from "./SelectPet";
 import heroIllustration from "./heroIllustration.svg";
 
 const Hero = () => {
   const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState('');
   const [otpShow, setOtpShow] = useState(false);
+  const [status, setStatus] = useState(false)
+  const [name, setName] = useState('')
 
   const getCode = async () => {
 
@@ -26,7 +29,13 @@ const Hero = () => {
         code: otp
       }
     })
-      .then(data => console.log(data))
+      .then(data => {
+
+        console.log(data)
+        if (data.data.status === 'approved') {
+          setStatus(true)
+        }
+      })
       .catch(err => console.log(err));
   }
 
@@ -44,46 +53,53 @@ const Hero = () => {
             area now.
           </p>
           <div className="flex mt-28 ">
-            <button className="bg-apnacolor hover:bg-apnacolor text-white font-bold py-2 px-4  rounded">
-              Find a Sitter
-            </button>
-            <button className="ml-3 bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-apnacolor rounded shadow">
-              Become a Sitter
-            </button>
-            <div className="m-1 flex flex-col">
-              <label>
-                Enter your Name -
-                <input type="text" className="rounded-md p-2 m-1" placeholder="eg: Nawed Ali" />
-              </label>
-              {!otpShow ? 
-              <label>
-                Enter your Phone Number in E. 164 format -
-                <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} className="rounded-md p-2 m-1" placeholder="eg: 91-725-029-1234" />
-              </label> 
-              :            
-              <label>
-                Enter OTP -
-                <input type="text" value={otp} onChange={(e) => setOtp(e.target.value) } className="rounded-md p-2 m-1" placeholder="eg: 322454" />
-              </label>
-              
-              }
-              <button type="submit" className="bg-apnacolor rounded-full w-1/2" onClick={() => {
-                if(otpShow) {
+            {status ? <div className="flex flex-col">
+              <h1>Welcome, {name ? name : "Unknown User"}</h1>
+              <div className="m-2 p-1">
+                <a href="/pet-sitter" className="bg-apnacolor hover:bg-apnacolor text-white font-bold m-2 p-2  rounded">
+                  Find a Sitter
+                </a>
+                <a href="/pet-owner" className="ml-3 bg-white hover:bg-gray-100 text-gray-800 font-semibold m-2 p-2 border border-apnacolor rounded shadow">
+                  Become a Sitter
+                </a>
+              </div>
+            </div>
+              :
+              <div className="m-1 p-1 flex flex-col items-start">
+                <label>
+                  Enter your Name -
+                  <input type="text" value={name} onChange={(e) => setName(e.target.value)} className="rounded-md border focus:outline-none p-2 m-1" placeholder="eg: Nawed Ali" />
+                </label>
+                {!otpShow ?
+                  <label>
+                    Enter your Phone Number in E. 164 format -
+                    <input type="text" value={phone} onChange={(e) => setPhone(e.target.value)} className="rounded-md border focus:outline-none p-2 m-1 " required placeholder="eg: 91-725-029-1234" />
+                  </label>
+                  :
+                  <label>
+                    Enter OTP -
+                    <input type="text" value={otp} onChange={(e) => setOtp(e.target.value)} className="rounded-md border focus:outline-none p-2 m-1" placeholder="eg: 322454" />
+                  </label>
+
+                }
+                <button type="submit" className="bg-apnacolor rounded-full w-44 p-1" onClick={() => {
+                  if (otpShow) {
                     verifyCode();
-                } else {
+                  } else {
                     getCode();
                     setOtpShow(true);
-                }
-            }}>Verify</button>
-            {otpShow && <><p>An OTP has been sent on {phone}</p>
-            <p>By tapping Verify an SMS may be sent. Message & data rates may apply.</p></>}
+                  }
+                }}>Verify</button>
+                {otpShow && <><p className="text-xs m-2">An OTP has been sent on {phone}</p>
+                </>}<p className="text-xs m-2">By tapping Verify an SMS may be sent. Message & data rates may apply.</p>
+              </div>}
           </div>
         </div>
+        <div className="hero-illustration flex-2">
+          <img src={heroIllustration} alt="hero" />
+        </div>
       </div>
-      <div className="hero-illustration flex-2">
-        <img src={heroIllustration} alt="hero" />
-      </div>
-    </div>
+      <SelectPet />
     </div >
   );
 };
