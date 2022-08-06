@@ -17,4 +17,4 @@ You are leaving town for an urgent business or a family trip and emergencies can
 • It also has a Pet Lover Zone where users can add their pets photos for fun.
 
 ## How we built it 
-We built the frontend using **HTML**, **CSS** and **React**. Firstly, we designed the outlook of the project. Then we took a part of it each and collaborated on GitHub to create our website. The backend is built using **React**, **JS** and **Twilio**. Once the backend and frontend were created, we integrated them.
+We built the frontend using **HTML**, **CSS** and **React**. Firstly, we designed the outlook of the project. Then we took a part of it each and collaborated on GitHub to create our website. The backend is built using **Node**, **Express**, **MongoDB** and **Twilio**.
