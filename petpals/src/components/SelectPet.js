@@ -11,7 +11,7 @@ const SelectPet = () => {
     return (
         <div className="container mx-auto px-4 bg-gray-100 pt-10">
             <div className='text-center'>
-                <h1 className='text-4xl mt-5'>Which Pet are you Interested in?</h1>
+                <h1 className='text-4xl font-semibold mt-5'>Which Pet are you Interested in?</h1>
                 <p className='text-slate-600 mt-5'>Select your which type of pet you have or which type of pet you want to take care of</p>
             </div>  
             <div className='flex justify-around pt-20 pb-20'>
