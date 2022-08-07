@@ -132,10 +132,24 @@ app.get("/get-sitter", function(req, response){
 
 app.get("/get-sitter-pet", function(req, response){
 
-  const query = { pet_type: req.body.pet_type };
-  find(query).limit(3).sort({rating: -1})
+  const pet_type = "Cats";
 
-  const sitter = PetSitter.findOne((query).limit(3).sort({rating: -1}),(err,res)=>{
+  const sitter = PetSitter.find({pet_type:pet_type},(err,res)=>{
+    if(err){
+      console.log(err)
+    }
+    else{
+      response.send(res);
+    }
+  });
+});
+
+
+app.get("/get-sitter-near", function(req, response){
+
+  const pet_type = "Pune";
+
+  const sitter = PetSitter.find({pet_type:pet_type},(err,res)=>{
     if(err){
       console.log(err)
     }
@@ -148,63 +162,6 @@ app.get("/get-sitter-pet", function(req, response){
 async function savePetSitter(petSitter1){
   await petSitter1.save();
 }
-
-async function sittersForYourPet(petType) {
-    try {
-      await client.connect();
-      const database = client.db('petpal_db');
-      const sitter_collection = database.collection('petsitter');
-
-      const query = { pet_type: petType };
-      const cursor =  sitter_collection.find(query).limit(3).sort({rating: -1});
-      const sitters = await cursor.toArray();
-        
-      console.log(sitters);
-    } finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
-    }
-}
-
-async function sittersNearYou(location) {
-    try {
-      await client.connect();
-      const database = client.db('petpal_db');
-      const sitter_collection = database.collection('petsitter');
-
-      const query = { location: location };
-      const cursor =  sitter_collection.find(query).limit(3).sort({rating: -1});
-      const sitters = await cursor.toArray();
-        
-      console.log(sitters);
-    } finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
-    }
-}
-
-async function cheapSittersNearYou(location) {
-    try {
-      await client.connect();
-      const database = client.db('petpal_db');
-      const sitter_collection = database.collection('petsitter');
-
-      const query = { location: location };
-      const cursor =  sitter_collection.find(query).limit(3).sort({price : 1});
-      const sitters = await cursor.toArray();
-        
-      console.log(sitters);
-    } finally {
-        // Ensures that the client will close when you finish/error
-        await client.close();
-    }
-}
-
-
-
-
-// cheapSittersNearYou('Pune').catch(console.dir);
-
 
 
 //Import Route

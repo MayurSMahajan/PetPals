@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 const Form = (props) => {
     const [phone, setPhone] = useState('');
@@ -11,6 +12,7 @@ const Form = (props) => {
     const [location, setLocation] = useState('')
     const [charge, setCharge] = useState(0)
     const userType = props.user_type
+    const navigate = useNavigate();
 
     function registerUser() {
         axios.post("http://localhost:8000/register-" + userType.toString(), 
@@ -23,6 +25,8 @@ const Form = (props) => {
             }
         )
             .catch(err => console.log(err));
+        
+        navigate("/pet-"+ userType.toString());
     }
 
     const getCode = async () => {
