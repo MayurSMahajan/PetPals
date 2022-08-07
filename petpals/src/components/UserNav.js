@@ -1,20 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SearchBar from "./SearchBar";
 import dogs from "../images/dogs.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const UserNav = () => {
   const navigate = useNavigate();
   const sentRequestsPage = () => {
     navigate("/sent-requests");
   };
-
-  let username = "Mayur";
+  const [userName, setUserName] = useState("");
+  useEffect(() => {
+    axios.get("https://localhost:3001/getowner").then((response) => {
+      setUserName(response.data);
+    });
+  }, []);
 
   return (
     <div className="flex justify-around items-bottom mt-10">
       <div>
         <h1 className="text-3xl font-semibold">
-          Hey <strong>{username} 👋</strong>
+          Hey <strong>{userName} 👋</strong>
         </h1>
       </div>
       <div className="w-2/4">
