@@ -1,9 +1,15 @@
 import React from "react";
 import SearchBar from "./SearchBar";
 import dogs from "../images/dogs.png";
-
+import { useNavigate } from "react-router-dom";
 const UserNav = () => {
+  const navigate = useNavigate();
+  const sentRequestsPage = () => {
+    navigate("/sent-requests");
+  };
+
   let username = "Mayur";
+
   return (
     <div className="flex justify-around items-bottom mt-10">
       <div>
@@ -13,6 +19,14 @@ const UserNav = () => {
       </div>
       <div className="w-2/4">
         <SearchBar />
+      </div>
+      <div>
+        <button
+          className="bg-apnacolor hover:bg-blue-700 text-white border font-bold py-2 px-4 rounded-full"
+          onClick={sentRequestsPage}
+        >
+          Your Requests
+        </button>
       </div>
       <div>
         <img
