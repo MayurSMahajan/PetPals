@@ -1,5 +1,8 @@
 # PetPals
 This application will help people with pets to find pet sitters, around their area. The pet sitter will be a verified pet enthusiast who like doing the job, people can register as pet sitters on the website. Pet Sitters will get a rating from the Pet Owners, this rating will help future Pet Owners decide the best Sitter for their pet.
+
+<img align="center" alt="image" src="https://user-images.githubusercontent.com/83456083/183278514-3a63482e-f8cc-4d09-991c-7cfcaa8034e0.png">
+
 ## Inspiration 
 You are leaving town for an urgent business or a family trip and emergencies can come in many forms: fires, hurricanes, earthquakes, tornadoes, floods, violent storms and even terrorism, in the event of extreme weather or a disaster, would you know what to do to protect your pet? Leaving pets out of evacuation plans can put pets, pet owners, and first responders in danger. Even if you try to create a safe place for them, pets left behind during a disaster are likely to be injured, lost, or worse. Thus we came up with a novel application **PetPal**, a social network for pet care allowing people to get a help from trusted people who can care for your dog while you are not in your house.
 
