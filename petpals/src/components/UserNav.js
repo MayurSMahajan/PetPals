@@ -10,10 +10,12 @@ const UserNav = () => {
   };
   const [userName, setUserName] = useState("");
   useEffect(() => {
-    axios.get("https://localhost:3001/getowner").then((response) => {
-      setUserName(response.data);
+    axios.get("http://localhost:8000/get-owner").then((response) => {
+      console.log(response)
     });
   }, []);
+
+  
 
   return (
     <div className="flex justify-around items-bottom mt-10">

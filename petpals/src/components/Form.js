@@ -10,6 +10,20 @@ const Form = (props) => {
     const [petType, setPetType] = useState('')
     const [location, setLocation] = useState('')
     const [charge, setCharge] = useState(0)
+    const userType = props.user_type
+
+    function registerUser() {
+        axios.post("http://localhost:8000/register-" + userType.toString(), 
+            {
+                name: name,
+                pet_type: petType,
+                location: location,
+                phone: phone,
+                charge: charge
+            }
+        )
+            .catch(err => console.log(err));
+    }
 
     const getCode = async () => {
 
@@ -73,12 +87,14 @@ const Form = (props) => {
 
             }
             <button type="submit" className="bg-apnacolor rounded-full w-32 p-1 mx-auto my-2" onClick={() => {
-                if (otpShow) {
-                    verifyCode();
-                } else {
-                    getCode();
-                    setOtpShow(true);
-                }
+                registerUser();
+                // if (otpShow) {
+                //     verifyCode();
+                    
+                // } else {
+                //     getCode();
+                //     setOtpShow(true);
+                // }
             }}>Verify</button>
             {otpShow && <><p className="text-xs m-2">An OTP has been sent on {phone}</p>
             </>}<p className="text-xs m-2">By tapping Verify an SMS may be sent. Message & data rates may apply.</p>

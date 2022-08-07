@@ -48,66 +48,106 @@ const petSitterSchema = new mongoose.Schema({
   current_requests: [String]
 });
 
-
 //Defining our model
 const PetSitter = mongoose.model('petsitter', petSitterSchema);
 
-const petOwner1 = new PetOwner({ 
-  id: uuidv4().toString(),
-  name : "Mayur Mahajan", 
-  pet_type:"Cat",
-  location:"Pune", 
-  phone:"+91-906-740-5445",
-  rating:4,
-  current_requests:[]
+app.post("/register-owner", function (req, res) {
+  const name = req.body.name
+  const pet_type = req.body.pet_type
+  const location =  req.body.location
+  const phone = req.body.phone
+  const id = uuidv4().toString();
+
+  const petOwner1 = new PetOwner({ 
+    id: id,
+    name : name,
+    pet_type:pet_type,
+    location:location, 
+    phone:phone,
+    current_requests:[]
+  });
+
+  try {
+    savePetOwner(petOwner1,id)
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-async function savePetOwner(){
+async function savePetOwner(petOwner1){
   await petOwner1.save();
 }
 
-const petSitter1 = new PetSitter({ 
-  id: uuidv4().toString(),
-  name : "Kaustubh Pardhi", 
-  pet_type:"Cat",
-  location:"Pune", 
-  price:499,
-  phone:"+91-906-740-5445",
-  rating:4,
-  current_requests:[]
+
+app.post("/register-sitter", function (req, res) {
+  const name = req.body.name
+  const pet_type = req.body.pet_type
+  const location =  req.body.location
+  const phone = req.body.phone
+  const charge = req.body.charge
+  const id = uuidv4().toString();
+
+  const petSitter1 = new PetSitter({ 
+    id: id,
+    name : name,
+    pet_type:pet_type,
+    location:location, 
+    phone:phone,
+    charge:charge,
+    current_requests:[]
+  });
+
+  try {
+    savePetSitter(petSitter1)
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-async function savePetSitter(){
+async function savePetSitter(petSitter1){
   await petSitter1.save();
 }
 
-app.post("/register-owner",function(req,res){
-  const petOwner1 = new PetOwner({ 
-    id: uuidv4().toString(),
-    name : req.body.username, 
-    pet_type:req.body.pet_type,
-    location:req.body.location, 
-    phone:req.body.phone,
-    // rating:Number(req.body.rating),
-    current_requests:[]
+app.get("/get-owner", function(req, response){
+  const owner = PetOwner.findOne({},(err,res)=>{
+    if(err){
+      console.log(err)
+    }
+    else{
+      response.send(res);
+    }
   });
-}
-);
+});
 
-app.post("/register-sitter",function(req,res){
-  const petOwner1 = new PetOwner({ 
-    id: uuidv4().toString(),
-    name : req.body.username, 
-    pet_type:req.body.pet_type,
-    location:req.body.location, 
-    phone:req.body.phone,
-    // rating:Number(req.body.rating),
-    current_requests:[]
+app.get("/get-sitter", function(req, response){
+  const sitter = PetSitter.findOne({},(err,res)=>{
+    if(err){
+      console.log(err)
+    }
+    else{
+      response.send(res);
+    }
   });
+});
+
+app.get("/get-sitter-pet", function(req, response){
+
+  const query = { pet_type: req.body.pet_type };
+  find(query).limit(3).sort({rating: -1})
+
+  const sitter = PetSitter.findOne((query).limit(3).sort({rating: -1}),(err,res)=>{
+    if(err){
+      console.log(err)
+    }
+    else{
+      response.send(res);
+    }
+  });
+});
+
+async function savePetSitter(petSitter1){
+  await petSitter1.save();
 }
-);
-
-
 
 async function sittersForYourPet(petType) {
     try {
@@ -168,6 +208,6 @@ async function cheapSittersNearYou(location) {
 
 
 //Import Route
-app.use('/verify', require('./routes/verify'));
+// app.use('/verify', require('./routes/verify'));
 
 module.exports = app;

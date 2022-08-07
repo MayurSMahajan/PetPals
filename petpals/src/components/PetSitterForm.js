@@ -10,7 +10,7 @@ const PetSitterForm = () => {
         </div>
         <div className='bg-[#C7A697] w-1/3'>
             <h1 className='text-2xl p-2 m-2 font-bold'>Register as a Pet Sitter</h1>
-            <Form charge={true} />
+            <Form charge={true} user_type="sitter"/>
         </div>
     </div>
   )
