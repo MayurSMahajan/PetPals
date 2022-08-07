@@ -1,8 +1,10 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import PetSitter from "./components/PetSitter";
 import PetOwner from "./components/PetOwner";
+import PetOwnerForm from "./components/PetOwnerForm";
+import PetSitterForm from "./components/PetSitterForm";
+import FeedbackForm from "./components/FeedbackForm";
 
 function App() {
   return (
@@ -10,8 +12,11 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Hero />} />
-          <Route path="/pet-sitter" element={<PetSitter />} />
-          <Route path="/pet-owner" element={<PetOwner />} />
+          <Route exact path="/pet-sitter" element={<PetSitter />} />
+          <Route exact path="/pet-owner" element={<PetOwner />} />
+          <Route exact path="/pet-owner-form" element={<PetOwnerForm />} />
+          <Route exact path="/pet-sitter-form" element={<PetSitterForm />} />
+          <Route path="/feedback" element={<FeedbackForm />} />
         </Routes>
       </Router>
     </div>
